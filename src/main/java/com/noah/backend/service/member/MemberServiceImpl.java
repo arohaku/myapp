@@ -1,5 +1,6 @@
 package com.noah.backend.service.member;
 
+import com.noah.backend.commons.MemberNotFoundException;
 import com.noah.backend.domain.entity.Member;
 import com.noah.backend.domain.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,5 +22,10 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public boolean isDuplicatedEmail(String email) {
         return memberRepository.existsByEmail(email);
+    }
+
+    @Override
+    public Member findMemberByEmail(String email) {
+        return memberRepository.findMemberByEmail(email).orElseThrow(MemberNotFoundException::new);
     }
 }
