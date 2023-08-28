@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
-    private final LoginService loginService;
 
     @Override
     @Transactional
@@ -37,7 +36,6 @@ public class MemberServiceImpl implements MemberService {
         Member member = findMemberByEmail(memberDto.getEmail());
 
         if (passwordEncoder.matches(memberDto.getPassword(), member.getPassword())) {
-            loginService.login(member.getEmail());
             return true;
         }
         return false;

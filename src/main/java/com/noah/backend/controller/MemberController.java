@@ -37,6 +37,7 @@ public class MemberController {
         boolean isValidMember = memberService.isValidMember(memberDto, passwordEncoder);
 
         if (isValidMember) {
+            loginService.login(memberDto.getEmail());
             return RESPONSE_OK;
         }
         return RESPONSE_BAD_REQUEST;
