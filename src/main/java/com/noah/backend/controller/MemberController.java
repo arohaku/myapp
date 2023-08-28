@@ -1,12 +1,14 @@
 package com.noah.backend.controller;
 
-import com.noah.backend.domain.entity.member.Member;
+import com.noah.backend.domain.dto.MemberDto;
+import com.noah.backend.domain.entity.Member;
 import com.noah.backend.service.member.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import static com.noah.backend.commons.HttpStatusResponseEntity.RESPONSE_CONFLICT;
@@ -19,14 +21,16 @@ import static com.noah.backend.commons.HttpStatusResponseEntity.RESPONSE_OK;
 public class MemberController {
 
     private final MemberService memberService;
+    private final PasswordEncoder passwordEncoder;
 
     /**
      * 사용자 회원가입 기능
-     * @param member
+     * @param memberDto
      * @return
      */
-    @PostMapping("/register")
-    public ResponseEntity<HttpStatus> registration(@RequestBody @Valid Member member) {
+    @PostMapping
+    public ResponseEntity<HttpStatus> registration(@RequestBody @Valid MemberDto memberDto) {
+        Member member = MemberDto.toEntity(memberDto, passwordEncoder);
         memberService.registrationMember(member);
         return RESPONSE_OK;
     }
