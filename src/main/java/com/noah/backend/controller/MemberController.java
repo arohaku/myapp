@@ -1,5 +1,6 @@
 package com.noah.backend.controller;
 
+import com.noah.backend.commons.annotation.LoginRequired;
 import com.noah.backend.domain.dto.MemberDto;
 import com.noah.backend.domain.entity.Member;
 import com.noah.backend.service.member.LoginService;
@@ -45,9 +46,10 @@ public class MemberController {
 
     /**
      * 사용자 로그아웃 기능
-     *
+     * LoginRequired를 통해 로그인 여부 체크
      * @return
      */
+    @LoginRequired
     @GetMapping("/logout")
     public ResponseEntity<HttpStatus> logout() {
         loginService.logout();
