@@ -1,6 +1,6 @@
 package com.noah.backend.service.member;
 
-import com.noah.backend.domain.entity.member.MemberEntity;
+import com.noah.backend.domain.entity.member.Member;
 import com.noah.backend.domain.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,8 +12,8 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
 
     @Override
-    public void registrationMember(MemberEntity memberEntity) {
-        memberRepository.save(memberEntity);
+    public void registrationMember(Member member) {
+        memberRepository.save(member);
     }
 
     @Override

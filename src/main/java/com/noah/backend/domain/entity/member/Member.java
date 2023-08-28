@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "MEMBER")
-public class MemberEntity {
+public class Member {
 
     @Id
     @GeneratedValue

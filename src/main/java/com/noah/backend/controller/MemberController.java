@@ -1,6 +1,6 @@
 package com.noah.backend.controller;
 
-import com.noah.backend.domain.entity.member.MemberEntity;
+import com.noah.backend.domain.entity.member.Member;
 import com.noah.backend.service.member.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,12 +22,12 @@ public class MemberController {
 
     /**
      * 사용자 회원가입 기능
-     * @param memberEntity
+     * @param member
      * @return
      */
     @PostMapping("/register")
-    public ResponseEntity<HttpStatus> registration(@RequestBody @Valid MemberEntity memberEntity) {
-        memberService.registrationMember(memberEntity);
+    public ResponseEntity<HttpStatus> registration(@RequestBody @Valid Member member) {
+        memberService.registrationMember(member);
         return RESPONSE_OK;
     }
 
