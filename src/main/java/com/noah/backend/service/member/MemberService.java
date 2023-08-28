@@ -1,6 +1,7 @@
 package com.noah.backend.service.member;
 
 import com.noah.backend.domain.dto.MemberDto;
+import com.noah.backend.domain.dto.ProfileRequest;
 import com.noah.backend.domain.entity.Member;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -13,4 +14,8 @@ public interface MemberService {
     public Member findMemberByEmail(String email);
 
     public boolean isValidMember(MemberDto memberDto, PasswordEncoder passwordEncoder);
+
+    public Member findMemberById(long id);
+
+    public void updateMemberProfile(Member member, ProfileRequest profileRequest);
 }

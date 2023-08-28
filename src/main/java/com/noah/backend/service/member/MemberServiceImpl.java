@@ -2,6 +2,7 @@ package com.noah.backend.service.member;
 
 import com.noah.backend.commons.exception.MemberNotFoundException;
 import com.noah.backend.domain.dto.MemberDto;
+import com.noah.backend.domain.dto.ProfileRequest;
 import com.noah.backend.domain.entity.Member;
 import com.noah.backend.domain.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
+
+    @Override
+    public Member findMemberById(long id) {
+        return memberRepository.findMemberById(id).orElseThrow(MemberNotFoundException::new);
+    }
 
     @Override
     @Transactional
@@ -39,5 +45,11 @@ public class MemberServiceImpl implements MemberService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    @Transactional
+    public void updateMemberProfile(Member member, ProfileRequest profileRequest) {
+        member.update(profileRequest.getNickname());
     }
 }

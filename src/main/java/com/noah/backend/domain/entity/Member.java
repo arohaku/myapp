@@ -6,12 +6,13 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
+import java.io.Serializable;
+
 @Entity
 @Getter
-@Setter
 @Table(name = "MEMBER")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member {
+public class Member{
 
     @Id
     @GeneratedValue
@@ -28,6 +29,10 @@ public class Member {
     public Member(String email, String password, String nickname) {
         this.email = email;
         this.password = password;
+        this.nickname = nickname;
+    }
+
+    public void update(String nickname) {
         this.nickname = nickname;
     }
 

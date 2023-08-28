@@ -2,6 +2,8 @@ package com.noah.backend.controller;
 
 import com.noah.backend.commons.annotation.LoginRequired;
 import com.noah.backend.domain.dto.MemberDto;
+import com.noah.backend.domain.dto.ProfileRequest;
+import com.noah.backend.domain.dto.ProfileResponse;
 import com.noah.backend.domain.entity.Member;
 import com.noah.backend.service.member.LoginService;
 import com.noah.backend.service.member.MemberService;
@@ -38,7 +40,7 @@ public class MemberController {
         boolean isValidMember = memberService.isValidMember(memberDto, passwordEncoder);
 
         if (isValidMember) {
-            loginService.login(memberDto.getEmail());
+            loginService.login(memberService.findMemberByEmail(memberDto.getEmail()).getId());
             return RESPONSE_OK;
         }
         return RESPONSE_BAD_REQUEST;
@@ -90,5 +92,37 @@ public class MemberController {
         }
 
         return RESPONSE_OK;
+    }
+
+    /**
+     * 사용자 프로필 조회 기능
+     * @param id
+     * @return
+     */
+    @LoginRequired
+    @GetMapping("/profile/{id}")
+    public ResponseEntity<ProfileResponse> getMemberProfile(@PathVariable long id) {
+
+        Member member = loginService.getLoginMember(id);
+
+        return ResponseEntity.ok(ProfileResponse.of(member));
+    }
+
+
+    /**
+     * 사용자 프로필 정보 업데이트 기능
+     * @param id
+     * @param profileRequest
+     * @return
+     */
+    @LoginRequired
+    @PutMapping("/profile/{id}")
+    public ResponseEntity<ProfileResponse> updateMemberProfile(@PathVariable long id, @RequestBody ProfileRequest profileRequest) {
+
+        Member member = loginService.getLoginMember(id);
+
+        memberService.updateMemberProfile(member, profileRequest);
+
+        return ResponseEntity.ok(ProfileResponse.of(member));
     }
 }
