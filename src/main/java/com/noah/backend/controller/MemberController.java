@@ -43,6 +43,18 @@ public class MemberController {
     }
 
     /**
+     * 사용자 로그아웃 기능
+     *
+     * @param httpSession
+     * @return
+     */
+    @GetMapping("/logout")
+    public ResponseEntity<HttpStatus> logout(HttpSession httpSession) {
+        httpSession.removeAttribute(MEMBER_ID);
+        return RESPONSE_OK;
+    }
+
+    /**
      * 사용자 회원가입 기능
      * @param memberDto
      * @return
