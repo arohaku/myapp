@@ -1,4 +1,4 @@
-package com.noah.backend;
+package com.noah.backend.integrations;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
