@@ -7,5 +7,5 @@ public interface LoginService {
 
     public void logout();
 
-    public Member getLoginMember(long id);
+    public Member getLoginMember();
 }

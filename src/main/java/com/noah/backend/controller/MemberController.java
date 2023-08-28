@@ -96,14 +96,13 @@ public class MemberController {
 
     /**
      * 사용자 프로필 조회 기능
-     * @param id
      * @return
      */
     @LoginRequired
-    @GetMapping("/profile/{id}")
-    public ResponseEntity<ProfileResponse> getMemberProfile(@PathVariable long id) {
+    @GetMapping("/my-profile")
+    public ResponseEntity<ProfileResponse> getMemberProfile() {
 
-        Member member = loginService.getLoginMember(id);
+        Member member = loginService.getLoginMember();
 
         return ResponseEntity.ok(ProfileResponse.of(member));
     }
@@ -116,10 +115,10 @@ public class MemberController {
      * @return
      */
     @LoginRequired
-    @PutMapping("/profile/{id}")
-    public ResponseEntity<ProfileResponse> updateMemberProfile(@PathVariable long id, @RequestBody ProfileRequest profileRequest) {
+    @PutMapping("/my-profile")
+    public ResponseEntity<ProfileResponse> updateMemberProfile(@RequestBody ProfileRequest profileRequest) {
 
-        Member member = loginService.getLoginMember(id);
+        Member member = loginService.getLoginMember();
 
         memberService.updateMemberProfile(member, profileRequest);
 
