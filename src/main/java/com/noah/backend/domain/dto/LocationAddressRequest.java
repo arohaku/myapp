@@ -2,25 +2,27 @@ package com.noah.backend.domain.dto;
 
 import com.noah.backend.domain.entity.Address;
 import com.noah.backend.domain.entity.Location;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
+@Builder
 @RequiredArgsConstructor
 public class LocationAddressRequest {
 
-    private final String depth1;
-    private final String depth2;
-    private final String depth3;
+    private final String state;
+    private final String city;
+    private final String town;
 
     private final Double longitude;
     private final Double latitude;
 
     public Address toAddress() {
         return Address.builder()
-                .depth1(depth1)
-                .depth2(depth2)
-                .depth3(depth3)
+                .state(state)
+                .city(city)
+                .town(town)
                 .build();
     }
 
