@@ -6,6 +6,7 @@ import com.noah.backend.domain.dto.PasswordRequest;
 import com.noah.backend.domain.dto.ProfileRequest;
 import com.noah.backend.domain.dto.ProfileResponse;
 import com.noah.backend.domain.entity.Member;
+import com.noah.backend.interceptor.LoginMember;
 import com.noah.backend.service.member.LoginService;
 import com.noah.backend.service.member.MemberService;
 import jakarta.servlet.http.HttpSession;
@@ -101,9 +102,7 @@ public class MemberController {
      */
     @LoginRequired
     @GetMapping("/my-profile")
-    public ResponseEntity<ProfileResponse> getMemberProfile() {
-
-        Member member = loginService.getLoginMember();
+    public ResponseEntity<ProfileResponse> getMemberProfile(@LoginMember Member member) {
 
         return ResponseEntity.ok(ProfileResponse.of(member));
     }
@@ -116,9 +115,7 @@ public class MemberController {
      */
     @LoginRequired
     @PutMapping("/my-profile")
-    public ResponseEntity<ProfileResponse> updateMemberProfile(@RequestBody ProfileRequest profileRequest) {
-
-        Member member = loginService.getLoginMember();
+    public ResponseEntity<ProfileResponse> updateMemberProfile(@LoginMember Member member, @RequestBody ProfileRequest profileRequest) {
 
         memberService.updateMemberProfile(member, profileRequest);
 
@@ -127,9 +124,7 @@ public class MemberController {
 
     @LoginRequired
     @PutMapping("/password")
-    public ResponseEntity<HttpStatus> changePassword(@Valid @RequestBody PasswordRequest passwordRequest) {
-
-        Member member = loginService.getLoginMember();
+    public ResponseEntity<HttpStatus> changePassword(@LoginMember Member member,  @Valid @RequestBody PasswordRequest passwordRequest) {
 
         if(memberService.isValidPassword(member, passwordRequest, passwordEncoder)) {
             memberService.updateMemberPassword(member, passwordRequest, passwordEncoder);
