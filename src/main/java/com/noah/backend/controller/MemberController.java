@@ -2,6 +2,7 @@ package com.noah.backend.controller;
 
 import com.noah.backend.commons.annotation.LoginRequired;
 import com.noah.backend.domain.dto.MemberDto;
+import com.noah.backend.domain.dto.PasswordRequest;
 import com.noah.backend.domain.dto.ProfileRequest;
 import com.noah.backend.domain.dto.ProfileResponse;
 import com.noah.backend.domain.entity.Member;
@@ -110,7 +111,6 @@ public class MemberController {
 
     /**
      * 사용자 프로필 정보 업데이트 기능
-     * @param id
      * @param profileRequest
      * @return
      */
@@ -123,5 +123,18 @@ public class MemberController {
         memberService.updateMemberProfile(member, profileRequest);
 
         return ResponseEntity.ok(ProfileResponse.of(member));
+    }
+
+    @LoginRequired
+    @PutMapping("/password")
+    public ResponseEntity<HttpStatus> changePassword(@Valid @RequestBody PasswordRequest passwordRequest) {
+
+        Member member = loginService.getLoginMember();
+
+        if(memberService.isValidPassword(member, passwordRequest, passwordEncoder)) {
+            memberService.updateMemberPassword(member, passwordRequest, passwordEncoder);
+        }
+
+        return RESPONSE_OK;
     }
 }
