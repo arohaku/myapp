@@ -1,6 +1,7 @@
 package com.noah.backend.service.post;
 
 import com.noah.backend.commons.advice.exception.CategoryNotFoundException;
+import com.noah.backend.commons.annotation.AreaInfoRequired;
 import com.noah.backend.domain.dto.PostCreateRequest;
 import com.noah.backend.domain.entity.Category;
 import com.noah.backend.domain.entity.Member;
@@ -20,6 +21,7 @@ public class TradePostService implements PostService {
     private final CategoryRepository categoryRepository;
 
     @Override
+    @AreaInfoRequired
     @Transactional
     public void createNewPost(PostCreateRequest postCreateRequest, Member member) {
         Post post = postCreateRequest.toEntity(member);

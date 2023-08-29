@@ -1,5 +1,6 @@
 package com.noah.backend.commons.advice;
 
+import com.noah.backend.commons.advice.exception.AreaInfoNotDefinedException;
 import com.noah.backend.commons.advice.exception.CategoryNotFoundException;
 import com.noah.backend.commons.advice.exception.MemberNotFoundException;
 import com.noah.backend.commons.advice.exception.UnAuthorizedAccessException;
@@ -32,5 +33,9 @@ public class ExceptionAdvice {
     @ExceptionHandler(CategoryNotFoundException.class)
     public ResponseEntity<String> categoryNotFoundException(CategoryNotFoundException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+    }
+    @ExceptionHandler(AreaInfoNotDefinedException.class)
+    public ResponseEntity<String> areaInfoNotDefinedException(AreaInfoNotDefinedException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
     }
 }
