@@ -11,7 +11,7 @@ public class SessionLoginService implements LoginService {
 
     private final HttpSession httpSession;
     private final MemberService memberService;
-    private static final String MEMBER_ID = "MEMBER_ID";
+    public static final String MEMBER_ID = "MEMBER_ID";
 
     @Override
     public void login(long id) {
