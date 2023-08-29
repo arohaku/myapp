@@ -27,7 +27,6 @@ public class PostCreateRequest {
         return Post.builder()
                 .title(this.title)
                 .content(this.content)
-                .category(Category.of(this.category))
                 .author(member)
                 .address(member.getAddress())
                 .location(member.getLocation())

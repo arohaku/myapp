@@ -24,7 +24,7 @@ public class PostController {
     private final PostService postService;
 
     @LoginRequired
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<HttpStatus> createNewPost(@RequestBody @Valid PostCreateRequest postCreateRequest,
                                                     @LoginMember Member member) {
 
