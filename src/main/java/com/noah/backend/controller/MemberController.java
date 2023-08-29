@@ -1,10 +1,7 @@
 package com.noah.backend.controller;
 
 import com.noah.backend.commons.annotation.LoginRequired;
-import com.noah.backend.domain.dto.MemberDto;
-import com.noah.backend.domain.dto.PasswordRequest;
-import com.noah.backend.domain.dto.ProfileRequest;
-import com.noah.backend.domain.dto.ProfileResponse;
+import com.noah.backend.domain.dto.*;
 import com.noah.backend.domain.entity.Member;
 import com.noah.backend.interceptor.LoginMember;
 import com.noah.backend.service.member.LoginService;
@@ -132,4 +129,14 @@ public class MemberController {
 
         return RESPONSE_OK;
     }
+
+    @LoginRequired
+    @PutMapping("/my-location")
+    public ResponseEntity<HttpStatus> setMemberLocationAddress(@LoginMember Member member, @RequestBody LocationAddressRequest locationAddressRequest) {
+
+        memberService.setMemberLocationAddress(member, locationAddressRequest);
+
+        return RESPONSE_OK;
+    }
+
 }

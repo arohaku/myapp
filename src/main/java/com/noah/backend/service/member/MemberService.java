@@ -1,5 +1,6 @@
 package com.noah.backend.service.member;
 
+import com.noah.backend.domain.dto.LocationAddressRequest;
 import com.noah.backend.domain.dto.MemberDto;
 import com.noah.backend.domain.dto.PasswordRequest;
 import com.noah.backend.domain.dto.ProfileRequest;
@@ -23,4 +24,7 @@ public interface MemberService {
     public boolean isValidPassword(Member member, PasswordRequest passwordRequest, PasswordEncoder passwordEncoder);
 
     public void updateMemberPassword(Member member, PasswordRequest passwordRequest, PasswordEncoder passwordEncoder);
+
+    public void setMemberLocationAddress(Member member, LocationAddressRequest locationAddressRequest);
+
 }

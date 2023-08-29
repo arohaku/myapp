@@ -1,6 +1,7 @@
 package com.noah.backend.service.member;
 
 import com.noah.backend.commons.exception.MemberNotFoundException;
+import com.noah.backend.domain.dto.LocationAddressRequest;
 import com.noah.backend.domain.dto.MemberDto;
 import com.noah.backend.domain.dto.PasswordRequest;
 import com.noah.backend.domain.dto.ProfileRequest;
@@ -68,6 +69,12 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     public void updateMemberPassword(Member member, PasswordRequest passwordRequest, PasswordEncoder passwordEncoder) {
         member.updatePassword(passwordEncoder.encode(passwordRequest.getNewPassword()));
+    }
+
+    @Override
+    @Transactional
+    public void setMemberLocationAddress(Member member, LocationAddressRequest locationAddressRequest) {
+        member.setMemberLocationAddress(locationAddressRequest);
     }
 
 }

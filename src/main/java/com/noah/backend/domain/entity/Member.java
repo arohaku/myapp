@@ -1,5 +1,6 @@
 package com.noah.backend.domain.entity;
 
+import com.noah.backend.domain.dto.LocationAddressRequest;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -25,6 +26,12 @@ public class Member{
 
     private String nickname;
 
+    @Embedded
+    private Address address;
+
+    @Embedded
+    private Location location;
+
     @Builder
     public Member(String email, String password, String nickname) {
         this.email = email;
@@ -40,4 +47,8 @@ public class Member{
         this.password = password;
     }
 
+    public void setMemberLocationAddress(LocationAddressRequest locationAddress) {
+        this.address = locationAddress.toAddress();
+        this.location = locationAddress.toLocation();
+    }
 }
