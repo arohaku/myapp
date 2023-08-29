@@ -1,9 +1,8 @@
 package com.noah.backend.service.member;
 
-import com.noah.backend.commons.exception.MemberNotFoundException;
+import com.noah.backend.commons.advice.exception.MemberNotFoundException;
 import com.noah.backend.domain.dto.MemberDto;
 import com.noah.backend.domain.entity.Member;
-import com.noah.backend.domain.repository.member.MemberRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

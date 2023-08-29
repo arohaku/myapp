@@ -1,4 +1,4 @@
-package com.noah.backend.commons.exception;
+package com.noah.backend.commons.advice.exception;
 
 public class MemberNotFoundException extends RuntimeException {
 

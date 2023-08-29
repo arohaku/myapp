@@ -1,6 +1,6 @@
 package com.noah.backend.service.member;
 
-import com.noah.backend.commons.exception.MemberNotFoundException;
+import com.noah.backend.commons.advice.exception.MemberNotFoundException;
 import com.noah.backend.domain.dto.LocationAddressRequest;
 import com.noah.backend.domain.dto.MemberDto;
 import com.noah.backend.domain.dto.PasswordRequest;

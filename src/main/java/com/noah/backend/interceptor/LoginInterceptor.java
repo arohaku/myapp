@@ -1,8 +1,7 @@
 package com.noah.backend.interceptor;
 
 import com.noah.backend.commons.annotation.LoginRequired;
-import com.noah.backend.commons.exception.UnAuthorizedAccessException;
-import com.noah.backend.domain.entity.Member;
+import com.noah.backend.commons.advice.exception.UnAuthorizedAccessException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;

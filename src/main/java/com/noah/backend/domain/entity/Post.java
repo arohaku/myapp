@@ -2,6 +2,7 @@ package com.noah.backend.domain.entity;
 
 import com.noah.backend.commons.BaseTimeEntity;
 import jakarta.persistence.*;
+import lombok.Builder;
 
 
 @Entity
@@ -32,5 +33,17 @@ public class Post extends BaseTimeEntity {
 
     @Embedded
     private Location location;
+
+    @Builder
+    public Post(String title, Category category, TradeStatus status, Member author,
+                String content, Address address, Location location) {
+        this.title = title;
+        this.category = category;
+        this.status = status;
+        this.author = author;
+        this.content = content;
+        this.address = address;
+        this.location = location;
+    }
 
 }

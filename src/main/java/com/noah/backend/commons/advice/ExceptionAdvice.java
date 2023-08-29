@@ -1,7 +1,8 @@
 package com.noah.backend.commons.advice;
 
-import com.noah.backend.commons.exception.MemberNotFoundException;
-import com.noah.backend.commons.exception.UnAuthorizedAccessException;
+import com.noah.backend.commons.advice.exception.CategoryNotFoundException;
+import com.noah.backend.commons.advice.exception.MemberNotFoundException;
+import com.noah.backend.commons.advice.exception.UnAuthorizedAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -27,5 +28,9 @@ public class ExceptionAdvice {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<String> validationNotValidException(MethodArgumentNotValidException e) {
         return new ResponseEntity<>(e.getFieldError().getDefaultMessage(), HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(CategoryNotFoundException.class)
+    public ResponseEntity<String> categoryNotFoundException(CategoryNotFoundException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 }
