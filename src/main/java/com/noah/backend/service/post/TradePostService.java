@@ -9,6 +9,7 @@ import com.noah.backend.domain.entity.Member;
 import com.noah.backend.domain.entity.Post;
 import com.noah.backend.domain.repository.post.CategoryRepository;
 import com.noah.backend.domain.repository.post.PostRepository;
+import com.noah.backend.service.member.LoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,8 @@ public class TradePostService implements PostService {
     private final PostRepository postRepository;
 
     private final CategoryService categoryService;
+
+    private final LoginService loginService;
 
     @Override
     @AreaInfoRequired
@@ -42,11 +45,17 @@ public class TradePostService implements PostService {
 
     @Override
     @Transactional
-    public void updatePost(Post post, PostRequest postRequest) {
+    public boolean updatePost(Post post, PostRequest postRequest) {
 
+        Member member = loginService.getLoginMember();
+
+        if(post.getAuthor() != member) {
+            return false;
+        }
         Category category = categoryService.findCategoryByName(postRequest.getCategory());
 
         post.updatePost(postRequest);
         post.setCategory(category);
+        return true;
     }
 }
