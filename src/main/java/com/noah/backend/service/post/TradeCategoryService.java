@@ -6,8 +6,7 @@ import com.noah.backend.domain.repository.post.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-
-import static com.noah.backend.commons.CacheKey.CATEGORY;
+import static com.noah.backend.config.CacheKeyConfig.*;
 
 @Service
 @RequiredArgsConstructor

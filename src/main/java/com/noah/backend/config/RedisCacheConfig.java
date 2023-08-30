@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.noah.backend.commons.CacheKey.*;
+import static com.noah.backend.config.CacheExpireConfig.CATEGORY_CACHE_EXPIRE_TIME;
 
 @Configuration
 @EnableCaching
@@ -75,7 +76,7 @@ public class RedisCacheConfig {
 
         Map<String, RedisCacheConfiguration> configurations = new HashMap<>();
         configurations.put(POST, redisCacheConfiguration.entryTtl(POST_CACHE_EXPIRE_TIME));
-        configurations.put(CATEGORY, redisCacheConfiguration);
+        configurations.put(CATEGORY, redisCacheConfiguration.entryTtl(CATEGORY_CACHE_EXPIRE_TIME));
 
         return RedisCacheManager.builder(redisConnectionFactory)
                 .cacheDefaults(redisCacheConfiguration)
