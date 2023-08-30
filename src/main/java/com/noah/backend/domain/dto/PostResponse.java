@@ -26,12 +26,7 @@ public class PostResponse {
     private  String category;
     private  Address address;
     private  Location location;
-
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime createdTime;
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime modifiedTime;
 
     public static PostResponse of(Post post) {
