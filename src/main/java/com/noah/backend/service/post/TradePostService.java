@@ -19,7 +19,7 @@ public class TradePostService implements PostService {
 
     private final PostRepository postRepository;
 
-    private final CategoryRepository categoryRepository;
+    private final CategoryService categoryService;
 
     @Override
     @AreaInfoRequired
@@ -28,8 +28,7 @@ public class TradePostService implements PostService {
 
         Post post = postRequest.toEntity(member);
 
-        Category category = categoryRepository.findCategoryByCategoryName(
-                postRequest.getCategory()).orElseThrow (() -> new CategoryNotFoundException(postRequest.getCategory()));
+        Category category = categoryService.findCategoryByName(postRequest.getCategory());
 
         post.setCategory(category);
 
@@ -45,8 +44,7 @@ public class TradePostService implements PostService {
     @Transactional
     public void updatePost(Post post, PostRequest postRequest) {
 
-        Category category = categoryRepository.findCategoryByCategoryName(
-                postRequest.getCategory()).orElseThrow (() -> new CategoryNotFoundException(postRequest.getCategory()));
+        Category category = categoryService.findCategoryByName(postRequest.getCategory());
 
         post.updatePost(postRequest);
         post.setCategory(category);
