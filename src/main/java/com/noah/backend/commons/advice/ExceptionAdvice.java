@@ -1,6 +1,10 @@
 package com.noah.backend.commons.advice;
 
-import com.noah.backend.commons.advice.exception.*;
+import com.noah.backend.member.exception.MemberNotFoundException;
+import com.noah.backend.member.exception.UnAuthorizedAccessException;
+import com.noah.backend.post.exception.AreaInfoNotDefinedException;
+import com.noah.backend.post.exception.CategoryNotFoundException;
+import com.noah.backend.post.exception.PostNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;

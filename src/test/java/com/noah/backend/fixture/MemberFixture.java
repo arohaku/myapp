@@ -1,7 +1,7 @@
 package com.noah.backend.fixture;
 
-import com.noah.backend.domain.dto.MemberDto;
-import com.noah.backend.domain.entity.Member;
+import com.noah.backend.member.dto.MemberDto;
+import com.noah.backend.member.domain.entity.Member;
 
 public class MemberFixture {
 

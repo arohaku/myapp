@@ -1,8 +1,10 @@
 package com.noah.backend.service.member;
 
-import com.noah.backend.commons.advice.exception.MemberNotFoundException;
-import com.noah.backend.domain.dto.MemberDto;
-import com.noah.backend.domain.entity.Member;
+import com.noah.backend.member.exception.MemberNotFoundException;
+import com.noah.backend.member.dto.MemberDto;
+import com.noah.backend.member.domain.entity.Member;
+import com.noah.backend.member.service.MemberServiceImpl;
+import com.noah.backend.member.service.SessionLoginService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,7 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import static com.noah.backend.service.member.SessionLoginService.MEMBER_ID;
+import static com.noah.backend.member.service.SessionLoginService.MEMBER_ID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;

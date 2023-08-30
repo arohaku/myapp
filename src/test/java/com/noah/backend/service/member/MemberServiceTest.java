@@ -1,12 +1,13 @@
 package com.noah.backend.service.member;
 
-import com.noah.backend.commons.advice.exception.MemberNotFoundException;
-import com.noah.backend.domain.dto.LocationAddressRequest;
-import com.noah.backend.domain.dto.MemberDto;
-import com.noah.backend.domain.dto.PasswordRequest;
-import com.noah.backend.domain.dto.ProfileRequest;
-import com.noah.backend.domain.entity.Member;
-import com.noah.backend.domain.repository.member.MemberRepository;
+import com.noah.backend.member.exception.MemberNotFoundException;
+import com.noah.backend.member.dto.LocationAddressRequest;
+import com.noah.backend.member.dto.MemberDto;
+import com.noah.backend.member.dto.PasswordRequest;
+import com.noah.backend.member.dto.ProfileRequest;
+import com.noah.backend.member.domain.entity.Member;
+import com.noah.backend.member.domain.repository.MemberRepository;
+import com.noah.backend.member.service.MemberServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
