@@ -1,6 +1,5 @@
 package com.noah.backend.domain.dto;
 
-import com.noah.backend.domain.entity.Category;
 import com.noah.backend.domain.entity.Member;
 import com.noah.backend.domain.entity.Post;
 import com.noah.backend.domain.entity.TradeStatus;
@@ -11,7 +10,7 @@ import org.hibernate.validator.constraints.Length;
 
 @Getter
 @RequiredArgsConstructor
-public class PostCreateRequest {
+public class PostRequest {
 
     @NotEmpty
     @Length(max = 100, message = "제목은 최대 100글자를 넘을 수 없습니다.")

@@ -1,20 +1,20 @@
 package com.noah.backend.controller;
 
 import com.noah.backend.commons.annotation.LoginRequired;
-import com.noah.backend.domain.dto.PostCreateRequest;
+import com.noah.backend.domain.dto.PostRequest;
+import com.noah.backend.domain.dto.PostResponse;
 import com.noah.backend.domain.entity.Member;
+import com.noah.backend.domain.entity.Post;
 import com.noah.backend.interceptor.LoginMember;
 import com.noah.backend.service.post.PostService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static com.noah.backend.commons.HttpStatusResponseEntity.RESPONSE_OK;
+import static com.noah.backend.commons.HttpStatusResponseEntity.RESPONSE_UNAUTHORIZED;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,10 +25,33 @@ public class PostController {
 
     @LoginRequired
     @PostMapping
-    public ResponseEntity<HttpStatus> createNewPost(@RequestBody @Valid PostCreateRequest postCreateRequest,
+    public ResponseEntity<HttpStatus> createNewPost(@RequestBody @Valid PostRequest postCreateRequest,
                                                     @LoginMember Member member) {
 
         postService.createNewPost(postCreateRequest, member);
+
+        return RESPONSE_OK;
+    }
+
+    @LoginRequired
+    @GetMapping("/{postId}")
+    public ResponseEntity<PostResponse> findPost(@PathVariable Long postId) {
+
+        return ResponseEntity.ok(PostResponse.of(postService.findPostById(postId)));
+    }
+
+    @LoginRequired
+    @PutMapping("/{postId}")
+    public ResponseEntity<HttpStatus> updatePost(@Valid @RequestBody PostRequest postRequest,
+                                                 @PathVariable Long postId, @LoginMember Member member) {
+
+        Post post = postService.findPostById(postId);
+
+        if(post.getAuthor() != member) {
+            return RESPONSE_UNAUTHORIZED;
+        }
+
+        postService.updatePost(post, postRequest);
 
         return RESPONSE_OK;
     }

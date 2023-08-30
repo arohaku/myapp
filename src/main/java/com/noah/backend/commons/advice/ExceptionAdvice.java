@@ -1,9 +1,6 @@
 package com.noah.backend.commons.advice;
 
-import com.noah.backend.commons.advice.exception.AreaInfoNotDefinedException;
-import com.noah.backend.commons.advice.exception.CategoryNotFoundException;
-import com.noah.backend.commons.advice.exception.MemberNotFoundException;
-import com.noah.backend.commons.advice.exception.UnAuthorizedAccessException;
+import com.noah.backend.commons.advice.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -37,5 +34,9 @@ public class ExceptionAdvice {
     @ExceptionHandler(AreaInfoNotDefinedException.class)
     public ResponseEntity<String> areaInfoNotDefinedException(AreaInfoNotDefinedException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
+    }
+    @ExceptionHandler(PostNotFoundException.class)
+    public ResponseEntity<HttpStatus> postNotFoundException() {
+        return RESPONSE_NOT_FOUND;
     }
 }

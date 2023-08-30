@@ -1,15 +1,22 @@
 package com.noah.backend.domain.entity;
 
 import com.noah.backend.commons.BaseTimeEntity;
+import com.noah.backend.domain.dto.PostRequest;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 
+@Getter
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Post extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "POST_ID")
     private Long id;
 
@@ -46,7 +53,28 @@ public class Post extends BaseTimeEntity {
         this.location = location;
     }
 
+    @Builder
+    public Post(Long id, String title, Category category, TradeStatus status,
+                Member author, String content, Address address, Location location,
+                LocalDateTime createdTime, LocalDateTime modifiedTime) {
+        this.id = id;
+        this.title = title;
+        this.category = category;
+        this.status = status;
+        this.author = author;
+        this.content = content;
+        this.address = address;
+        this.location = location;
+        this.createdTime = createdTime;
+        this.modifiedTime = modifiedTime;
+    }
+
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public void updatePost(PostRequest postRequest) {
+        this.title = postRequest.getTitle();
+        this.content = postRequest.getContent();
     }
 }

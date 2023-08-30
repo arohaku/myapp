@@ -1,9 +1,14 @@
 package com.noah.backend.service.post;
 
-import com.noah.backend.domain.dto.PostCreateRequest;
+import com.noah.backend.domain.dto.PostRequest;
 import com.noah.backend.domain.entity.Member;
+import com.noah.backend.domain.entity.Post;
 
 public interface PostService {
 
-    public void createNewPost(PostCreateRequest postCreateRequest, Member member);
+    public void createNewPost(PostRequest postRequest, Member member);
+
+    public Post findPostById(Long postId);
+
+    public void updatePost(Post post, PostRequest postRequest);
 }

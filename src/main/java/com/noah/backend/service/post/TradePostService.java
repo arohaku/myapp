@@ -1,8 +1,9 @@
 package com.noah.backend.service.post;
 
 import com.noah.backend.commons.advice.exception.CategoryNotFoundException;
+import com.noah.backend.commons.advice.exception.PostNotFoundException;
 import com.noah.backend.commons.annotation.AreaInfoRequired;
-import com.noah.backend.domain.dto.PostCreateRequest;
+import com.noah.backend.domain.dto.PostRequest;
 import com.noah.backend.domain.entity.Category;
 import com.noah.backend.domain.entity.Member;
 import com.noah.backend.domain.entity.Post;
@@ -23,14 +24,31 @@ public class TradePostService implements PostService {
     @Override
     @AreaInfoRequired
     @Transactional
-    public void createNewPost(PostCreateRequest postCreateRequest, Member member) {
-        Post post = postCreateRequest.toEntity(member);
+    public void createNewPost(PostRequest postRequest, Member member) {
+
+        Post post = postRequest.toEntity(member);
 
         Category category = categoryRepository.findCategoryByCategoryName(
-                postCreateRequest.getCategory()).orElseThrow (() -> new CategoryNotFoundException(postCreateRequest.getCategory()));
+                postRequest.getCategory()).orElseThrow (() -> new CategoryNotFoundException(postRequest.getCategory()));
 
         post.setCategory(category);
 
         postRepository.save(post);
+    }
+
+    @Override
+    public Post findPostById(Long postId) {
+        return postRepository.findPostById(postId).orElseThrow(PostNotFoundException::new);
+    }
+
+    @Override
+    @Transactional
+    public void updatePost(Post post, PostRequest postRequest) {
+
+        Category category = categoryRepository.findCategoryByCategoryName(
+                postRequest.getCategory()).orElseThrow (() -> new CategoryNotFoundException(postRequest.getCategory()));
+
+        post.updatePost(postRequest);
+        post.setCategory(category);
     }
 }
