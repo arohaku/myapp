@@ -1,4 +1,4 @@
-package com.noah.backend.service.member;
+package com.noah.backend.member;
 
 import com.noah.backend.member.exception.MemberNotFoundException;
 import com.noah.backend.member.dto.LocationAddressRequest;
