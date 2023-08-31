@@ -1,6 +1,7 @@
 package com.noah.backend.commons.advice;
 
 import com.noah.backend.member.exception.MemberNotFoundException;
+import com.noah.backend.member.exception.UnAuthenticatedAccessException;
 import com.noah.backend.member.exception.UnAuthorizedAccessException;
 import com.noah.backend.post.exception.AreaInfoNotDefinedException;
 import com.noah.backend.post.exception.CategoryNotFoundException;
@@ -11,8 +12,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import static com.noah.backend.commons.HttpStatusResponseEntity.RESPONSE_FORBIDDEN;
-import static com.noah.backend.commons.HttpStatusResponseEntity.RESPONSE_NOT_FOUND;
+import static com.noah.backend.commons.HttpStatusResponseEntity.*;
 
 @RestControllerAdvice
 public class ExceptionAdvice {
@@ -42,5 +42,10 @@ public class ExceptionAdvice {
     @ExceptionHandler(PostNotFoundException.class)
     public ResponseEntity<HttpStatus> postNotFoundException() {
         return RESPONSE_NOT_FOUND;
+    }
+
+    @ExceptionHandler(UnAuthenticatedAccessException.class)
+    public ResponseEntity<HttpStatus> unAuthenticatedAccessException() {
+        return RESPONSE_UNAUTHORIZED;
     }
 }

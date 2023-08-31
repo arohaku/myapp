@@ -47,10 +47,9 @@ public class PostController {
 
         Post post = postService.findPostById(postId);
 
-        if(postService.updatePost(post, postRequest)) {
-            return RESPONSE_OK;
-        }
-        return RESPONSE_UNAUTHORIZED;
+        postService.updatePost(post, postRequest);
+
+        return RESPONSE_OK;
 
     }
 
@@ -61,10 +60,8 @@ public class PostController {
 
         Post post = postService.findPostById(postId);
 
-        if(postService.removePost(post)) {
-            return RESPONSE_OK;
-        }
+        postService.removePost(post);
 
-        return RESPONSE_UNAUTHORIZED;
+        return RESPONSE_OK;
     }
 }

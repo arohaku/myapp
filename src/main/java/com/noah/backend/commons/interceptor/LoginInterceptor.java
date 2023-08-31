@@ -1,6 +1,7 @@
 package com.noah.backend.commons.interceptor;
 
 import com.noah.backend.commons.annotation.LoginRequired;
+import com.noah.backend.member.exception.UnAuthenticatedAccessException;
 import com.noah.backend.member.exception.UnAuthorizedAccessException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -21,7 +22,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         Long memberId = (Long) request.getSession().getAttribute(MEMBER_ID);
 
         if (handlerMethod.hasMethodAnnotation(LoginRequired.class) && memberId == null) {
-            throw new UnAuthorizedAccessException();
+            throw new UnAuthenticatedAccessException();
         }
         return true;
     }
