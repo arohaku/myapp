@@ -15,13 +15,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import static com.noah.backend.commons.HttpStatusResponseEntity.*;
+import static com.noah.backend.member.controller.MemberController.MEMBER_API_URI;
 
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/api/members")
+@RequestMapping(MEMBER_API_URI)
 public class MemberController {
 
+    public static final String MEMBER_API_URI = "/api/members";
     private static final String MEMBER_ID = "MEMBER_ID";
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;

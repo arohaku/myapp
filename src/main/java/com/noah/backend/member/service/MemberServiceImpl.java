@@ -7,6 +7,7 @@ import com.noah.backend.member.dto.PasswordRequest;
 import com.noah.backend.member.dto.ProfileRequest;
 import com.noah.backend.member.domain.entity.Member;
 import com.noah.backend.member.domain.repository.MemberRepository;
+import com.noah.backend.member.exception.PasswordNotMatchedException;
 import com.noah.backend.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -61,9 +62,9 @@ public class MemberServiceImpl implements MemberService {
 
         if(passwordEncoder.matches(passwordRequest.getOldPassword(), member.getPassword())) {
             return true;
-        }
-
-        return false;
+        }else {
+        throw new PasswordNotMatchedException();
+         }
     }
 
     @Override

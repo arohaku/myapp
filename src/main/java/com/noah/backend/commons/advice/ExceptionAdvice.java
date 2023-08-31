@@ -1,6 +1,7 @@
 package com.noah.backend.commons.advice;
 
 import com.noah.backend.member.exception.MemberNotFoundException;
+import com.noah.backend.member.exception.PasswordNotMatchedException;
 import com.noah.backend.member.exception.UnAuthenticatedAccessException;
 import com.noah.backend.member.exception.UnAuthorizedAccessException;
 import com.noah.backend.post.exception.AreaInfoNotDefinedException;
@@ -47,5 +48,10 @@ public class ExceptionAdvice {
     @ExceptionHandler(UnAuthenticatedAccessException.class)
     public ResponseEntity<HttpStatus> unAuthenticatedAccessException() {
         return RESPONSE_UNAUTHORIZED;
+    }
+
+    @ExceptionHandler(PasswordNotMatchedException.class)
+    public ResponseEntity<HttpStatus> passwordNotMatchedException() {
+        return RESPONSE_BAD_REQUEST;
     }
 }
