@@ -1,5 +1,6 @@
 package com.noah.backend.image.util;
 
+import com.noah.backend.image.exception.UnSupportedFileTypeException;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 

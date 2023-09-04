@@ -2,9 +2,11 @@ package com.noah.backend.commons.config;
 
 import com.noah.backend.commons.util.RoutingDataSource;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.*;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -52,4 +54,13 @@ public class DataSourceConfig {
     public DataSource dataSource() {
         return new LazyConnectionDataSourceProxy(routingDataSource());
     }
+
+
+    @Bean
+    public JdbcTemplate jdbcTemplate(@Qualifier("masterDataSource") DataSource dataSource) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+        jdbcTemplate.setDataSource(dataSource);
+        return jdbcTemplate;
+    }
+
 }
