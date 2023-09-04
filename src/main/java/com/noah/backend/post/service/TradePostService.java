@@ -10,8 +10,12 @@ import com.noah.backend.post.domain.entity.Post;
 import com.noah.backend.post.domain.repository.PostRepository;
 import com.noah.backend.member.service.LoginService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import static com.noah.backend.commons.config.CacheKeyConfig.POST;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +30,16 @@ public class TradePostService implements PostService {
     @Override
     @AreaInfoRequired
     @Transactional
+    @Caching(evict = {
+            @CacheEvict(
+                    key = "#member.getAddress().state + '.' + #member.getAddress().city + '.' + #member.getAddress().town",
+                    value = POST
+            ),
+            @CacheEvict(
+                    key = "#member.getAddress().state + '.' + #member.getAddress().city + '.' + #member.getAddress().town + '.' + #postRequest.category",
+                    value = POST
+            )
+    })
     public void createNewPost(PostRequest postRequest, Member member) {
 
         Post post = postRequest.toEntity(member);
@@ -38,12 +52,23 @@ public class TradePostService implements PostService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Post findPostById(Long postId) {
         return postRepository.findPostById(postId).orElseThrow(PostNotFoundException::new);
     }
 
     @Override
     @Transactional
+    @Caching(evict = {
+            @CacheEvict(
+                    key = "#member.getAddress().state + '.' + #member.getAddress().city + '.' + #member.getAddress().town",
+                    value = POST
+            ),
+            @CacheEvict(
+                    key = "#member.getAddress().state + '.' + #member.getAddress().city + '.' + #member.getAddress().town + '.' + #postRequest.category",
+                    value = POST
+            )
+    })
     public void updatePost(Post post, PostRequest postRequest) {
 
         if (isMatchedAuthor(post)) {
@@ -58,9 +83,19 @@ public class TradePostService implements PostService {
 
     @Override
     @Transactional
+    @Caching(evict = {
+            @CacheEvict(
+                    key = "#member.getAddress().state + '.' + #member.getAddress().city + '.' + #member.getAddress().town",
+                    value = POST
+            ),
+            @CacheEvict(
+                    key = "#member.getAddress().state + '.' + #member.getAddress().city + '.' + #member.getAddress().town + '.' + #postRequest.category",
+                    value = POST
+            )
+    })
     public void removePost(Post post) {
 
-        if(isMatchedAuthor(post)) {
+        if (isMatchedAuthor(post)) {
             post.removePost();
         }
 
@@ -72,7 +107,7 @@ public class TradePostService implements PostService {
 
         Member member = loginService.getLoginMember();
 
-        if(post.getAuthor() != member) {
+        if (post.getAuthor() != member) {
             throw new UnAuthorizedAccessException();
         }
 
