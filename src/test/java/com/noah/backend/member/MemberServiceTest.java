@@ -7,6 +7,7 @@ import com.noah.backend.member.dto.PasswordRequest;
 import com.noah.backend.member.dto.ProfileRequest;
 import com.noah.backend.member.domain.entity.Member;
 import com.noah.backend.member.domain.repository.MemberRepository;
+import com.noah.backend.member.exception.PasswordNotMatchedException;
 import com.noah.backend.member.service.MemberServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -138,7 +139,9 @@ class MemberServiceTest {
         when(passwordEncoder.matches(any(), any())).thenReturn(false);
 
         // then
-        assertFalse(memberService.isValidMember(memberDto, passwordEncoder));
+        assertThrows(PasswordNotMatchedException.class, () -> {
+            memberService.isValidPassword(member, passwordRequest, passwordEncoder);
+        });
     }
 
     @Test
