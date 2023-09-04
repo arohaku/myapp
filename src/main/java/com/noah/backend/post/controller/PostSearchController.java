@@ -3,8 +3,10 @@ package com.noah.backend.post.controller;
 import com.noah.backend.commons.annotation.LoginRequired;
 import com.noah.backend.commons.interceptor.LoginMember;
 import com.noah.backend.member.domain.entity.Member;
+import com.noah.backend.post.dto.AddressRequest;
 import com.noah.backend.post.dto.PostPageResponse;
 import com.noah.backend.post.service.TradePostSearchService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,16 @@ public class PostSearchController {
     public ResponseEntity<PostPageResponse> getTradePosts(@LoginMember Member member, Pageable pageable) {
 
         PostPageResponse page = tradePostSearchService.findAllByMemberAddress(member, pageable);
+
+        return ResponseEntity.ok(page);
+    }
+
+
+    @LoginRequired
+    @GetMapping("/address")
+    public ResponseEntity<PostPageResponse> getTradePostsByAddress(@Valid AddressRequest address, Pageable pageable) {
+
+        PostPageResponse page = tradePostSearchService.findAllByAddress(address, pageable);
 
         return ResponseEntity.ok(page);
     }

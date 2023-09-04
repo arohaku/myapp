@@ -5,6 +5,7 @@ import com.noah.backend.member.domain.entity.Member;
 import com.noah.backend.post.domain.entity.Address;
 import com.noah.backend.post.domain.entity.Post;
 import com.noah.backend.post.domain.repository.PostSearchRepository;
+import com.noah.backend.post.dto.AddressRequest;
 import com.noah.backend.post.dto.PostPageResponse;
 import com.noah.backend.post.dto.PostResponse;
 import lombok.RequiredArgsConstructor;
@@ -25,10 +26,19 @@ public class TradePostSearchService implements PostSearchService {
     @AreaInfoRequired
     public PostPageResponse findAllByMemberAddress(Member member, Pageable pageable) {
 
-        Address address = member.getAddress();
+        return getPagePostResponse(member.getAddress(), pageable);
+    }
+
+    @Override
+    public PostPageResponse findAllByAddress(AddressRequest address, Pageable pageable) {
+
+        return getPagePostResponse(AddressRequest.toEntity(address), pageable);
+    }
+
+    private PostPageResponse getPagePostResponse(Address address, Pageable pageable) {
         Page<Post> posts = postSearchRepository.findAllByMemberAddress(address.getState(), address.getCity(), address.getTown(), pageable);
 
-        List<PostResponse> postResponses = posts.getContent().stream().map(PostResponse::of) .collect(Collectors.toList());
+        List<PostResponse> postResponses = posts.getContent().stream().map(PostResponse::of).collect(Collectors.toList());
 
         return PostPageResponse.builder()
                 .totalPage(posts.getTotalPages())
